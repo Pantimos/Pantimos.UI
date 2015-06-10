@@ -11,7 +11,7 @@ define(function(require, module, exports) {
     function init() {
         if (homePage.length) {
             bgStar('.js-page-home .bg-star');
-            homePage.find('.application-intro').on('click', function(e) {
+            $('.application-intro').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 var scrollTop = homePage.find('.bg-star').height() + homePage.find('.bg-star').offset().top - $('body > navbar').height();

@@ -21,8 +21,8 @@
                 'moe': '../dist/js/moe.min'
             }
         });
-        require(['moe'], function (theme) {
-            console.log(theme)
+        require(['moe'], function (app) {
+            app.init();
         });
     </script>
 </head>
@@ -84,7 +84,7 @@
                 <div class="container">
                     <h1>创建环境</h1>
                     <p>创建环境之后，你只需要在本地添加HOSTS或者添加DNS解析，即可直接访问域名。</p>
-                    <p><input type="url" class="input-domain" id="domain" placeholder="请输入一个你喜欢的域名，:D">
+                    <p><input type="url" class="input-domain" placeholder="请输入一个你喜欢的域名，:D">
                         <a class="button button-3d button-box button-jumbo js-create-project-button" href="#" role="button"><i class="fa fa-plus"></i></a></p>
                 </div>
             </div>

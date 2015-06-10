@@ -12,7 +12,9 @@ define(function(require, module, exports) {
             projectPage.find('.js-create-project-button').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log(1);
+                $.post('/create-project', {'domain':projectPage.find('.input-domain').val()}, function(resp){
+                    console.log(resp);
+                });
             });
         }
     }
