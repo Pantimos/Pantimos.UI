@@ -3,6 +3,7 @@ define(function (require, module, exports) {
 
     var debug = require('./model/debug');
     debug(5);
+
     var home = require('./page/home');
 
     function initTheme() {
@@ -12,5 +13,5 @@ define(function (require, module, exports) {
 
     return {
         init : initTheme
-    }
+    };
 });
