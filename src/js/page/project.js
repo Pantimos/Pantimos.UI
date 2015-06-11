@@ -29,7 +29,7 @@ define(function(require) {
              */
             function getList() {
                 Network.request('getProjectList', '', '', function(response) {
-                    Template.render('project-list', response.data);
+                    Template.render('project-list', response);
                 }, function(response) {
                     debug.error(response, '失败');
                 });
