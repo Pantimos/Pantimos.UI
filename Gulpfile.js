@@ -8,6 +8,9 @@ var rename = require('gulp-rename');
 var dirSync = require('gulp-directory-sync');
 var minifyCSS = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
+var template = require('gulp-lazy-tpl');
+var rm = require('gulp-rm');
+
 
 gulp.task('default', ['demo:sync']);
 gulp.task('build', ['style:build', 'script:build'], function() {});
@@ -15,11 +18,20 @@ gulp.task('style:build', ['style:less', 'style:copy-lib', 'style:copy-img', 'sty
 gulp.task('script:build', ['script:copy-lib', 'scripts:minify'], function() {});
 
 // 编译脚本
-gulp.task('scripts:compile', function() {
+gulp.task('scripts:compile',['scripts:template'], function() {
     return gulp.src('src/js/**/*.js')
         .pipe(amdOptimize('moe', {wrapShim : true}))
         .pipe(concat('moe.js'))
         .pipe(gulp.dest('dist/js'));
+});
+
+gulp.task('scripts:template', function() {
+    gulp.src('./src/js/tpl/**/*.js', {read : false})
+        .pipe(rm({async : false}));
+    return gulp.src('./src/js/tpl/**/*.html')
+        .pipe(template('doT', {}))
+        .pipe(rename({extname : '.js'}))
+        .pipe(gulp.dest('./src/js/tpl/'));
 });
 
 // 压缩脚本

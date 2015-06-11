@@ -1,14 +1,12 @@
 /**
- * bg-star
- *
- * @desc
- * @date        15/6/11
- * @author      soulteary <soulteary@qq.com> (http://soulteary.com)
- * @package
+ * 绘制背景星星
  */
-define(function(require) {
+/* global define,window */
 
-    var $ = window.$;
+define(function(require) {
+    'use strict';
+
+    var $ = require('./core');
     var win = $(window);
 
     function start(target) {

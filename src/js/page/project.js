@@ -1,52 +1,55 @@
 /**
  * 项目页面
+ *
+ * @author soulteary
+ * @date 2015.06.12
  */
-define(function (require, module, exports) {
+/* global define */
+define(function(require) {
     'use strict';
 
-    var $ = window.$;
-    var projectPage = $('.js-page-project');
+    return {
+        init : function(container) {
 
-    /**
-     * 获取所有项目列表
-     */
-    function getList() {
-        if (projectPage.length) {
-            $.post('/project-list', null, function (response) {
-                if (response) {
-                    switch (response.code) {
-                        case 200:
-                            console.log(response.data);
-                            break;
-                        case 400:
-                            console.log(response.data);
-                            break;
-                    }
-                }
-            });
-        }
-    }
+            var $ = require('../model/core');
+            var page = $(container);
 
+            if (!page.length) {
+                return false;
+            }
 
-    function pageLoaded() {
-        getList();
-    }
+            var debug = require('../model/debug');
+            debug('info');
 
+            var Template = require('../model/template')(page);
+            var Network = require('../model/network');
 
-    function init() {
-        if (projectPage.length) {
-            projectPage.find('.js-create-project-button').on('click', function (e) {
+            /**
+             * 获取所有项目列表
+             */
+            function getList() {
+                Network.request('getProjectList', '', '', function(response) {
+                    Template.render('project-list', response.data);
+                }, function(response) {
+                    debug.error(response, '失败');
+                });
+            }
+
+            /**
+             * 页面载入时执行
+             */
+            function pageLoaded() {
+                getList();
+            }
+
+            page.find('.js-create-project-button').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $.post('/create-project', {'domain' : projectPage.find('.input-domain').val()}, function (resp) {
-                    console.log(resp);
+                $.post('/create-project', {'domain' : page.find('.input-domain').val()}, function(resp) {
+                    debug.error(resp);
                 });
             });
+            pageLoaded();
         }
-        pageLoaded();
-    }
-
-    return {
-        init : init
     };
 });

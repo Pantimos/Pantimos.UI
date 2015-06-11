@@ -1,26 +1,34 @@
 /**
  * 首页脚本
+ *
+ * @author soulteary
+ * @date 2015.06.12
  */
-define(function(require, module, exports) {
+/* global define */
+define(function(require) {
     'use strict';
 
-    var $ = window.$;
-    var bgStar = require('../model/bg-star');
-    var homePage = $('.js-page-home');
+    return {
+        init : function(container) {
 
-    function init() {
-        if (homePage.length) {
+            var $ = require('../model/core');
+            var page = $(container);
+
+            if (!page.length) {
+                return false;
+            }
+
+            var bgStar = require('../model/bg-star');
+
             bgStar('.js-page-home .bg-star');
             $('.application-intro').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                var scrollTop = homePage.find('.bg-star').height() + homePage.find('.bg-star').offset().top - $('body > navbar').height();
-                $('html,body').animate({scrollTop : scrollTop}, 800);
+                var scrollTop = page.find('.bg-star').height() + page.find('.bg-star').offset().top - $('body > navbar').height();
+                if (scrollTop > $('body').scrollTop()) {
+                    $('html,body').stop().animate({scrollTop : scrollTop}, 800);
+                }
             });
         }
-    }
-
-    return {
-        init : init
     };
 });

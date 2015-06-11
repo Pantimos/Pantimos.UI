@@ -1,21 +1,28 @@
-define(function(require, module, exports) {
+/**
+ * 页面入口脚本
+ *
+ * @author soulteary
+ * @date 2015.06.12
+ */
+/* global define */
+define(function(require) {
     'use strict';
-    var $ = window.$;
+
+    var $ = require('./model/core');
     var debug = require('./model/debug');
-    debug(5);
+    debug('info');
 
-    var home = require('./page/home');
-    var project = require('./page/project');
+    var page = {};
 
-    function initTheme() {
+    function init() {
         $(function() {
-            debug.log('this is demo.');
-            home.init();
-            project.init();
+            debug.log('Pantimos Start!');
+            page.home = require('./page/home').init('.js-page-home');
+            page.project = require('./page/project').init('.js-page-project');
         });
     }
 
     return {
-        init : initTheme
+        init : init
     };
 });
