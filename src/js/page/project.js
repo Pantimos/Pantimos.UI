@@ -28,11 +28,13 @@ define(function(require) {
              * 获取所有项目列表
              */
             function getList() {
-                Network.request('getProjectList', '', '', function(response) {
-                    Template.render('project-list', response);
-                }, function(response) {
-                    debug.error(response, '失败');
-                });
+                Network.request('getProjectList', '', '',
+                    function(response) {
+                        debug.log(response, '成功');
+                        Template.render('project-list', response);
+                    }, function(response) {
+                        debug.error(response, '失败');
+                    });
             }
 
             /**
@@ -45,9 +47,12 @@ define(function(require) {
             page.find('.js-create-project-button').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $.post('/create-project', {'domain' : page.find('.input-domain').val()}, function(resp) {
-                    debug.error(resp);
-                });
+                Network.request('createProject', '', {'domain' : page.find('.input-domain').val()},
+                    function(response) {
+                        debug.log(response, '成功');
+                    }, function(response) {
+                        debug.error(response, '失败');
+                    });
             });
             pageLoaded();
         }

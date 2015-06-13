@@ -1,5 +1,5 @@
 /* global define, location */
-define(function(require) {
+define(function (require) {
     'use strict';
 
     var $ = require('./core');
@@ -23,7 +23,11 @@ define(function(require) {
 
     var API = {
         'getProjectList' : {
-            uri  : protocol + host + '/project-list',
+            uri  : protocol + host + '/api/project-list',
+            type : 'POST'
+        },
+        'createProject'  : {
+            uri  : protocol + host + '/api/create-project',
             type : 'POST'
         }
 

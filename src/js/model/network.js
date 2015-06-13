@@ -67,7 +67,7 @@ define(function(require) {
             $.ajax({
                 type        : api.type,
                 url         : api.uri,
-                data        : JSON.stringify(data),
+                data        : data,
                 contentType : 'application/json',
                 success     : innerSuccess,
                 error       : innerFail
