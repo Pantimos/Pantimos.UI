@@ -3,10 +3,12 @@ define(function(require) {
     'use strict';
 
     var tplPackage = {
-        'project-list' : require('../tpl/project-list')
+        'project-list' : require('../tpl/project-list'),
+        'mock-list' :require('../tpl/mock-list')
     };
     var container = {
-        'project-list' : '.js-table-project-list'
+        'project-list' : '.js-table-project-list',
+        'mock-list' :'.js-table-mock-list'
     };
 
     function Template(page) {

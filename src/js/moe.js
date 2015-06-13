@@ -19,6 +19,7 @@ define(function(require) {
             debug.log('Pantimos Start!');
             page.home = require('./page/home').init('.js-page-home');
             page.project = require('./page/project').init('.js-page-project');
+            page.mock = require('./page/mock').init('.js-page-mock');
         });
     }
 

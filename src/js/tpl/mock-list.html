@@ -1,0 +1,23 @@
+<table class="table table table-bordered table-hover js-table-mock-list">
+    <thead>
+    <tr>
+        <th class="col-md-11">项目名称</th>
+        <th class="col-md-1">删除项目</th>
+    </tr>
+    </thead>
+    <tbody>
+    {{~it :item:index}}
+    <tr>
+        <td>{{=item.name}}</td>
+        <td>
+            {{? item.mock}}
+            <a class="button button-pill button-tiny button-circle button-caution js-remove-mock" href="#"><i class="fa fa-minus"></i></a>
+            {{?}}
+            {{? !item.mock}}
+            <a class="button button-pill button-tiny button-circle button-action js-create-mock" href="#"><i class="fa fa-plus"></i></a>
+            {{?}}
+        </td>
+    </tr>
+    {{~}}
+    </tbody>
+</table>

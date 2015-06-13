@@ -33,8 +33,11 @@ define(function(require) {
         'removeProject'  : {
             uri  : protocol + host + '/api/remove-project',
             type : 'POST'
+        },
+        'getMockList'  : {
+            uri  : protocol + host + '/api/mock-list',
+            type : 'POST'
         }
-
     };
 
     return makeUp;

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Document</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/css/todc-bootstrap.min.css"/>
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="assets/css/buttons.css"/>
+    <link rel="stylesheet" href="assets/css/style.min.css"/>
+    <script src="assets/js/lib/require.min.js"></script>
+    <script src="assets/js/lib/jquery-2.1.4.min.js"></script>
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <script src="assets/js/lib/headroom.min.js"></script>
+    <script>
+        requirejs.config({
+            baseUrl: './',
+            paths  : {
+                'moe': '../dist/js/moe.min'
+            }
+        });
+        require(['moe'], function (app) {
+            app.init();
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-masthead navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">首页</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" aria-expanded="false">
+            <ul class="nav navbar-nav">
+                <li><a href="#intro"><i class="fa fa-lightbulb-o"></i>功能概览</a></li>
+                <li><a href="#"><i class="fa fa-book"></i>使用方法</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-list"></i>功能列表 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li class="active"><a href="#"><i class="fa fa-connectdevelop"></i>创建环境</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">模拟数据</li>
+                        <li><a href="#"><i class="fa fa-medium"></i>接口模拟</a></li>
+                        <li><a href="#"><i class="fa fa-picture-o"></i>图片模拟</a></li>
+                        <li><a href="#"><i class="fa fa-github"></i>GitHub</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-question"></i>关于程序 <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#"><i class="fa fa-tachometer"></i>组件状态</a></li>
+                        <li class="divider"></li>
+                        <li class="dropdown-header">在线资源</li>
+                        <li><a href="#"><i class="fa fa-github"></i>GitHub</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="form-group">
+                    <input type="text" placeholder="请输入要执行的命令..." class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">执行</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="js-page-view js-page-mock">
+    <div class="container">
+
+        <div class="col-md-12 main">
+            <h1 class="page-header">数据模拟</h1>
+
+            <div class="jumbotron">
+                <div class="container">
+                    <h1>数据模拟</h1>
+                    <p>快速创建程序开发时需要的页面以及接口数据、甚至图片...</p>
+                </div>
+            </div>
+
+            <h2 class="sub-header">存在数据模拟的项目</h2>
+            <div class="table-responsive">
+                <table class="table table table-bordered table-hover js-table-mock-list">
+                    <thead>
+                    <tr>
+                        <th class="col-md-11">项目名称</th>
+                        <th class="col-md-1">删除模拟数据</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>dev.dev.dev</td>
+                        <td>
+                            <a class="button button-pill button-tiny button-circle button-caution js-remove-project" href="#"><i class="fa fa-minus"></i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>hello.world</td>
+                        <td>
+                            <a class="button button-pill button-tiny button-circle button-caution js-remove-project" href="#"><i class="fa fa-minus"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    <hr>
+
+    <footer>
+        <p>&copy; soulteary 2015</p>
+    </footer>
+</div>
+
+<div class="progress hide" id="global-progress">
+    <div class="progress-bar progress-bar-success active" style="width: 35%">
+        <span class="sr-only">35% Complete (success)</span>
+    </div>
+    <div class="progress-bar progress-bar-warning progress-bar-striped active" style="width: 20%">
+        <span class="sr-only">20% Complete (warning)</span>
+    </div>
+    <div class="progress-bar progress-bar-danger active" style="width: 10%">
+        <span class="sr-only">10% Complete (danger)</span>
+    </div>
+</div>
+
+
+</body>
+</html>
