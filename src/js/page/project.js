@@ -19,7 +19,7 @@ define(function(require) {
             }
 
             var debug = require('../model/debug');
-            debug('info');
+            debug('log');
 
             var Template = require('../model/template')(page);
             var Network = require('../model/network');
@@ -30,10 +30,10 @@ define(function(require) {
             function getList() {
                 Network.request('getProjectList', '', '',
                     function(response) {
-                        debug.log(response, '成功');
+                        debug.info(response, '获取项目列表成功。');
                         Template.render('project-list', response);
                     }, function(response) {
-                        debug.error(response, '失败');
+                        debug.error(response, '获取项目列表失败');
                     });
             }
 
@@ -44,16 +44,30 @@ define(function(require) {
                 getList();
             }
 
-            page.find('.js-create-project-button').on('click', function(e) {
+            page.delegate('.js-remove-project', 'click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                Network.request('removeProject', '', {'domain' : $(this).closest('tr').find('td:first-child').text()},
+                    function(response) {
+                        getList();
+                        debug.log(response, '创建新的项目环境成功。');
+                    }, function(response) {
+                        debug.error(response, '创建新的项目环境失败');
+                    });
+            });
+
+            page.delegate('.js-create-project-button', 'click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
                 Network.request('createProject', '', {'domain' : page.find('.input-domain').val()},
                     function(response) {
-                        debug.log(response, '成功');
+                        getList();
+                        debug.log(response, '创建新的项目环境成功。');
                     }, function(response) {
-                        debug.error(response, '失败');
+                        debug.error(response, '创建新的项目环境失败');
                     });
             });
+
             pageLoaded();
         }
     };
