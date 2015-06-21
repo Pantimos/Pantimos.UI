@@ -11,7 +11,7 @@
  *          debug([setLevel, 1,2,3,4,5]);
  *          debug.method // 'count', 'error', 'warn', 'info', 'debug', 'log', 'time', 'timeEnd', 'timeStamp', 'performance'
  */
-define(function (require, module, exports) {
+define(function(require, module, exports) {
     'use strict';
 
     // 默认调试等级为禁用一切输出
@@ -23,19 +23,19 @@ define(function (require, module, exports) {
     // 内部版本
     var version = "0.0.1",
 
-        Debug   = function (params) {
+        Debug   = function(params) {
             return new Debug.fn.init(params);
         };
 
 
     Debug.fn = Debug.prototype = {
         Debug      : version,
-        constructor: Debug
+        constructor : Debug
     };
 
 
     // extend, minify from jquery
-    Debug.extend = Debug.fn.extend = function () {
+    Debug.extend = Debug.fn.extend = function() {
         var options, name, src, copy,
             target = this;
 
@@ -61,7 +61,7 @@ define(function (require, module, exports) {
      * 外观模式提供调用
      * @type {Function}
      */
-    var init = Debug.fn.init = function (params) {
+    var init = Debug.fn.init = function(params) {
         switch (arguments.length) {
             case 1:
                 Debug.extend(instance(params));
@@ -106,12 +106,12 @@ define(function (require, module, exports) {
      */
     function getDebug (level) {
         if (!debugCache[level]) {
-            debugCache[level] = (function (w, level) {
-                var c = w.console || null, p = w.performance || null, v = function () {}, d = {}, f = ['count', 'error', 'warn', 'info', 'debug', 'log', 'time', 'timeEnd'];
+            debugCache[level] = (function(w, level) {
+                var c = w.console || null, p = w.performance || null, v = function() {}, d = {}, f = ['count', 'error', 'warn', 'info', 'debug', 'log', 'time', 'timeEnd'];
                 for (var i = 0, j = f.length; i < j; i++) {
-                    (function (x, i) {d[x] = c && c[x] ? function () {level >= i && level <= 5 && (isFogy() ? Function.prototype.call.call(c[x], c, Array.prototype.slice.call(arguments)) : c[x].apply(c, arguments))} : v})(f[i], i);
+                    (function(x, i) {d[x] = c && c[x] ? function() {level >= i && level <= 5 && (isFogy() ? Function.prototype.call.call(c[x], c, Array.prototype.slice.call(arguments)) : c[x].apply(c, arguments))} : v})(f[i], i);
                 }
-                d['timeStamp'] = function () {return +new Date;};
+                d['timeStamp'] = function() {return +new Date;};
                 d['performance'] = p && p.timing ? p.timing : null;
                 return d;
             }(window, level));

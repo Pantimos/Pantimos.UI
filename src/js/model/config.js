@@ -37,6 +37,14 @@ define(function(require) {
         'getMockList'  : {
             uri  : protocol + host + '/api/mock-list',
             type : 'POST'
+        },
+        'createMock'  : {
+            uri  : protocol + host + '/api/create-mock',
+            type : 'POST'
+        },
+        'removeMock'  : {
+            uri  : protocol + host + '/api/remove-mock',
+            type : 'POST'
         }
     };
 

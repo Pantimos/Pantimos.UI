@@ -44,6 +44,18 @@ define(function(require) {
                 getList();
             }
 
+            page.delegate('.js-create-mock', 'click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                Network.request('createMock', '', {'domain' : $(this).closest('tr').find('td:first-child').text()},
+                    function(response) {
+                        getList();
+                        debug.log(response, '创建新的项目环境成功。');
+                    }, function(response) {
+                        debug.error(response, '创建新的项目环境失败');
+                    });
+            });
+
             page.delegate('.js-remove-mock', 'click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();

@@ -1,7 +1,7 @@
 /**
  * UA判断模块
  */
-define(function (require, module, exports) {
+define(function(require, module, exports) {
     'use strict';
 
     var detector = {};
@@ -33,10 +33,10 @@ define(function (require, module, exports) {
         }
     }
 
-// 硬件设备信息识别表达式。
-// 使用数组可以按优先级排序。
+    // 硬件设备信息识别表达式。
+    // 使用数组可以按优先级排序。
     var DEVICES = [
-        ["nokia", function (ua) {
+        ["nokia", function(ua) {
             // 不能将两个表达式合并，因为可能出现 "nokia; nokia 960"
             // 这种情况下会优先识别出 nokia/-1
             if (ua.indexOf("nokia ") !== -1) {
@@ -46,14 +46,14 @@ define(function (require, module, exports) {
             }
         }],
         // 三星有 Android 和 WP 设备。
-        ["samsung", function (ua) {
+        ["samsung", function(ua) {
             if (ua.indexOf("samsung") !== -1) {
                 return /\bsamsung(?:[ \-](?:sgh|gt|sm))?-([a-z0-9]+)/;
             } else {
                 return /\b(?:sgh|sch|gt|sm)-([a-z0-9]+)/;
             }
         }],
-        ["wp", function (ua) {
+        ["wp", function(ua) {
             return ua.indexOf("windows phone ") !== -1 || ua.indexOf("xblwp") !== -1 || ua.indexOf("zunewp") !== -1 || ua.indexOf("windows ce") !== -1;
         }],
         ["pc", "windows"],
@@ -67,11 +67,11 @@ define(function (require, module, exports) {
         // 红米
         ['hongmi', /\bhm[ \-]?([a-z0-9]+)/],
         ["aliyun", /\baliyunos\b(?:[\-](\d+))?/],
-        ["meizu", function (ua) {
+        ["meizu", function(ua) {
             return ua.indexOf("meizu") >= 0 ? /\bmeizu[\/ ]([a-z0-9]+)\b/ : /\bm([0-9x]{1,3})\b/
         }],
         ["nexus", /\bnexus ([0-9s.]+)/],
-        ["huawei", function (ua) {
+        ["huawei", function(ua) {
             var re_mediapad = /\bmediapad (.+?)(?= build\/huaweimediapad\b)/;
             if (ua.indexOf("huawei-huawei") !== -1) {
                 return /\bhuawei\-huawei\-([a-z0-9\-]+)/;
@@ -81,7 +81,7 @@ define(function (require, module, exports) {
                 return /\bhuawei[ _\-]?([a-z0-9]+)/;
             }
         }],
-        ["lenovo", function (ua) {
+        ["lenovo", function(ua) {
             if (ua.indexOf("lenovo-lenovo") !== -1) {
                 return /\blenovo\-lenovo[ \-]([a-z0-9]+)/;
             } else {
@@ -89,7 +89,7 @@ define(function (require, module, exports) {
             }
         }],
         // 中兴
-        ["zte", function (ua) {
+        ["zte", function(ua) {
             if (/\bzte\-[tu]/.test(ua)) {
                 return /\bzte-[tu][ _\-]?([a-su-z0-9\+]+)/;
             } else {
@@ -98,7 +98,7 @@ define(function (require, module, exports) {
         }],
         // 步步高
         ["vivo", /\bvivo(?: ([a-z0-9]+))?/],
-        ["htc", function (ua) {
+        ["htc", function(ua) {
             if (/\bhtc[a-z0-9 _\-]+(?= build\b)/.test(ua)) {
                 return /\bhtc[ _\-]?([a-z0-9 ]+(?= build))/;
             } else {
@@ -111,7 +111,7 @@ define(function (require, module, exports) {
         ["coolpad", /\bcoolpad[_ ]?([a-z0-9]+)/],
         ["lg", /\blg[\-]([a-z0-9]+)/],
         ["android", /\bandroid\b|\badr\b/],
-        ["blackberry", function (ua) {
+        ["blackberry", function(ua) {
             if (ua.indexOf("blackberry") >= 0) {
                 return /\bblackberry\s?(\d+)/;
             }
@@ -120,7 +120,7 @@ define(function (require, module, exports) {
         // [诺亚信](http://www.noain.com.cn/)
         ["noain", /\bnoain ([a-z0-9]+)/],
         // TODO: [华为荣耀](http://www.honor.cn/)
-        ["huawei-honor", function (ua) {
+        ["huawei-honor", function(ua) {
             if (/\bhonor/.test(ua)) {
                 return /\b(honor)[ ]([a-z0-9]+)-([a-z0-9]+)\b/;
             } else if (/\bh\d+-l\d+/.test(ua)) {
@@ -144,7 +144,7 @@ define(function (require, module, exports) {
         ['星语', /\bxy[- ]([a-z0-9]+)/],
         ['欧奇', /\boku([a-z0-9]+)/],
         ['海派', /\bhaipai ([a-z0-9 ]+) build/],
-        ['广信', function (ua) {
+        ['广信', function(ua) {
             if (/\bef98 build/.test(ua)) {
                 return /\bef98 build/;
             }
@@ -153,14 +153,14 @@ define(function (require, module, exports) {
 
         ['神州', /\bhasee ([a-z0-9 ]+) build\b/],
         ['青橙', /\bgo ([a-z0-9\-]+) build\b/],
-        ['海信', function (ua) {
+        ['海信', function(ua) {
             if (/\bhs[ \-]+([a-z0-9]+)/.test(ua)) {
                 return /\bhs[ \-]+([a-z0-9]+)/;
             } else if (/ (e601m|t980) build/) {
                 return / (e601m|t980) build/;
             }
         }],
-        ["金立", function (ua) {
+        ["金立", function(ua) {
             if (/\b(?:gn|gionee)[ \-_]?([a-z0-9]+)[ \/]+/.test(ua)) {
                 return /\b(?:gn|gionee)[ \-_]?([a-z0-9]+)[ \/]+/;
             } else if (/; a5 build/.test(ua)) {
@@ -173,7 +173,7 @@ define(function (require, module, exports) {
         ["eton", /\beton ([a-z0-9]+)/],
         ["bohp", /\bbohp[_\- ]([a-z0-9]+)/],
         ['小杨树', /; (mm110\d) build/],
-        ['语信', function (ua) {
+        ['语信', function(ua) {
             if (/\byusun ([a-z0-9]+)/.test(ua)) {
                 return /\byusun ([a-z0-9]+)/;
             } else if (/\bla\d-([a-z0-9]+) build/.test(ua)) {
@@ -188,7 +188,7 @@ define(function (require, module, exports) {
         ['mofut', /\bmofut ([a-z0-9]+) build/],
         // InFocus
         ['infocus', /\binfocus ([a-z0-9]+) build/],
-        ['大唐', function (ua) {
+        ['大唐', function(ua) {
             if (/\b(i318)_t3 build/.test(ua)) {
                 return /\b(i318)_t3 build/;
             } else if (/\bdatang ([a-z0-9]+)/.test(ua)) {
@@ -199,14 +199,14 @@ define(function (require, module, exports) {
         ['天迈', /\bt\-smart ([a-z0-9]+)/],
         ['大显', /\bht7100/],
         ['博瑞', /\bbror ([a-z0-9]+)/],
-        ['lingwin', function (ua) {
+        ['lingwin', function(ua) {
             if (/\blingwin ([a-z0-9]+)/.test(ua)) {
                 return /\blingwin ([a-z0-9]+)/;
             }
             return /lingwin /;
         }],
         ['iusai', /\biusai ([a-z0-9]+)/],
-        ['波导', function (ua) {
+        ['波导', function(ua) {
             if (/\bbird ([a-z0-9]+)/.test(ua)) {
                 return /\bbird ([a-z0-9]+)/;
             } else if (/\bdoeasy ([a-z0-9]+) build/.test(ua)) {
@@ -224,19 +224,19 @@ define(function (require, module, exports) {
         ['佰事讯', /\b(wx9) build/],
         ['newman', /; newman ([a-z0-9]+) build/],
         // 康佳
-        ['konka', function (ua) {
+        ['konka', function(ua) {
             if (/ (l823) build/.test(ua)) {
                 return / (l823) build/;
             } else if (/\bkonka[_\-]([a-z0-9]+)/.test(ua)) {
                 return /\bkonka[_\-]([a-z0-9]+)/;
             }
         }],
-        ['haier', function (ua) {
+        ['haier', function(ua) {
             if (/\b(?:haier|ht)[_-]([a-z0-9\-]+)\b/.test(ua)) {
                 return /\b(?:haier|ht)[_-]([a-z0-9\-]+)\b/;
             }
         }],
-        ['moto', function (ua) {
+        ['moto', function(ua) {
             if (/\bmot[\-]([a-z0-9]+)/.test(ua)) {
                 return /\bmot[\-]([a-z0-9]+)/;
             } else if (/ (xt\d{3}) build/.test(ua)) {
@@ -244,14 +244,14 @@ define(function (require, module, exports) {
             }
         }],
         // TCL
-        ['tcl', function (ua) {
+        ['tcl', function(ua) {
             if (/\btcl[ \-]([a-z0-9]+)/.test(ua)) {
                 return /\btcl[ \-]([a-z0-9]+)/;
             } else if (/\btcl([a-z0-9]+)/.test(ua)) {
                 return /\btcl([a-z0-9]+)/;
             }
         }],
-        ['天语', function (ua) {
+        ['天语', function(ua) {
             if (ua.indexOf('k-touch ') !== -1) {
                 return /\bk\-touch ([a-z0-9 +]+)(?:build|\))/
             } else if (ua.indexOf('k-touch_') !== -1) {
@@ -261,7 +261,7 @@ define(function (require, module, exports) {
             }
         }],
         // sony.
-        ["sonyericsson", function (ua) {
+        ["sonyericsson", function(ua) {
             if (/\b([l|s]t\d{2}[i]{1,2}|[s|l]\d{2}h|m\d{2}c) build/.test(ua)) {
                 return /\b([l|s]t\d{2}[i]{1,2}|[s|l]\d{2}h|m\d{2}c)/;
             } else if (/\bmt([a-z0-9]+)/.test(ua)) {
@@ -276,7 +276,7 @@ define(function (require, module, exports) {
             return /\bxm\d{2}t/;
         }],
         ['doov', /\bdoov[ _]([a-z0-9]+)/],
-        ['天时达', function (ua) {
+        ['天时达', function(ua) {
             if (/\bts(\d+)/.test(ua)) {
                 return /\bts(\d+)/;
             } else if (/\b(t5688) /.test(ua)) {
@@ -285,9 +285,9 @@ define(function (require, module, exports) {
         }]
     ];
 
-// 操作系统信息识别表达式
+    // 操作系统信息识别表达式
     var OS = [
-        ["wp", function (ua) {
+        ["wp", function(ua) {
             if (ua.indexOf("windows phone ") !== -1) {
                 return /\bwindows phone (?:os )?([0-9.]+)/;
             } else if (ua.indexOf("xblwp") !== -1) {
@@ -299,7 +299,7 @@ define(function (require, module, exports) {
         }],
         ["windows", /\bwindows nt ([0-9.]+)/],
         ["macosx", /\bmac os x ([0-9._]+)/],
-        ["ios", function (ua) {
+        ["ios", function(ua) {
             if (/\bcpu(?: iphone)? os /.test(ua)) {
                 return /\bcpu(?: iphone)? os ([0-9._]+)/;
             } else if (ua.indexOf("iph os ") !== -1) {
@@ -309,7 +309,7 @@ define(function (require, module, exports) {
             }
         }],
         ["yunos", /\baliyunos ([0-9.]+)/],
-        ["android", function (ua) {
+        ["android", function(ua) {
             if (ua.indexOf("android") >= 0) {
                 return /\bandroid[ \/-]?([0-9.x]+)?/;
             } else if (ua.indexOf("adr") >= 0) {
@@ -326,19 +326,19 @@ define(function (require, module, exports) {
         ["linux", "linux"],
         ["windowsce", /\bwindows ce(?: ([0-9.]+))?/],
         ["symbian", /\bsymbian(?:os)?\/([0-9.]+)/],
-        ["blackberry", function (ua) {
+        ["blackberry", function(ua) {
             var m = ua.match(re_blackberry_10) || ua.match(re_blackberry_6_7) || ua.match(re_blackberry_4_5);
             return m ? {
-                version: m[1]
+                version : m[1]
             } : "blackberry";
         }],
         ['smartisanos', /\bsmartisan os \- ([\d.]+)/],
         ["meego", /\bmeego\b/]
     ];
 
-// 解析使用 Trident 内核的浏览器的 `浏览器模式` 和 `文档模式` 信息。
-// @param {String} ua, userAgent string.
-// @return {Object}
+    // 解析使用 Trident 内核的浏览器的 `浏览器模式` 和 `文档模式` 信息。
+    // @param {String} ua, userAgent string.
+    // @return {Object}
 
 
     function IEMode (ua) {
@@ -374,7 +374,7 @@ define(function (require, module, exports) {
         }
 
         return {
-            browserVersion: browserVersion,
+            browserVersion : browserVersion,
             browserMode   : browserMode,
             engineVersion : engineVersion,
             engineMode    : engineMode,
@@ -382,9 +382,9 @@ define(function (require, module, exports) {
         };
     }
 
-// 针对同源的 TheWorld 和 360 的 external 对象进行检测。
-// @param {String} key, 关键字，用于检测浏览器的安装路径中出现的关键字。
-// @return {Undefined,Boolean,Object} 返回 undefined 或 false 表示检测未命中。
+    // 针对同源的 TheWorld 和 360 的 external 对象进行检测。
+    // @param {String} key, 关键字，用于检测浏览器的安装路径中出现的关键字。
+    // @return {Undefined,Boolean,Object} 返回 undefined 或 false 表示检测未命中。
 
 
     function checkTW360External (key) {
@@ -406,7 +406,7 @@ define(function (require, module, exports) {
             }
             if (version) {
                 return {
-                    version: version
+                    version : version
                 };
             }
         } catch (ex) {
@@ -415,15 +415,15 @@ define(function (require, module, exports) {
 
     var ENGINE = [
         ["trident", re_msie],
-        ["blink", function (ua) {
+        ["blink", function(ua) {
             return "chrome" in win && "CSS" in win && /\bapplewebkit[\/]?([0-9.+]+)/;
         }],
         ["webkit", /\bapplewebkit[\/]?([0-9.+]+)/],
-        ["gecko", function (ua) {
+        ["gecko", function(ua) {
             var match;
             if (match = ua.match(/\brv:([\d\w.]+).*\bgecko\/(\d+)/)) {
                 return {
-                    version: match[1] + "." + match[2]
+                    version : match[1] + "." + match[2]
                 }
             }
         }],
@@ -435,7 +435,7 @@ define(function (require, module, exports) {
     ];
     var BROWSER = [
 // Sogou.
-        ["sogou", function (ua) {
+        ["sogou", function(ua) {
             if (ua.indexOf("sogoumobilebrowser") >= 0) {
                 return /sogoumobilebrowser\/([0-9.]+)/
             } else if (ua.indexOf("sogoumse") >= 0) {
@@ -447,7 +447,7 @@ define(function (require, module, exports) {
 // 由于裙带关系，TheWorld API 与 360 高度重合。
 // 只能通过 UA 和程序安装路径中的应用程序名来区分。
 // TheWorld 的 UA 比 360 更靠谱，所有将 TheWorld 的规则放置到 360 之前。
-        ["theworld", function (ua) {
+        ["theworld", function(ua) {
             var x = checkTW360External("theworld");
             if (typeof x !== "undefined") {
                 return x;
@@ -455,7 +455,7 @@ define(function (require, module, exports) {
             return "theworld";
         }],
 // 360SE, 360EE.
-        ["360", function (ua) {
+        ["360", function(ua) {
             var x = checkTW360External("360se");
             if (typeof x !== "undefined") {
                 return x;
@@ -466,11 +466,11 @@ define(function (require, module, exports) {
             return /\b360(?:se|ee|chrome|browser)\b/;
         }],
 // Maxthon
-        ["maxthon", function (ua) {
+        ["maxthon", function(ua) {
             try {
                 if (external && (external.mxVersion || external.max_version)) {
                     return {
-                        version: external.mxVersion || external.max_version
+                        version : external.mxVersion || external.max_version
                     };
                 }
             } catch (ex) {
@@ -480,7 +480,7 @@ define(function (require, module, exports) {
         ["qq", /\bm?qqbrowser\/([0-9.]+)/],
         ["green", "greenbrowser"],
         ["tt", /\btencenttraveler ([0-9.]+)/],
-        ["liebao", function (ua) {
+        ["liebao", function(ua) {
             if (ua.indexOf("liebaofast") >= 0) {
                 return /\bliebaofast\/([0-9.]+)/;
             }
@@ -495,7 +495,7 @@ define(function (require, module, exports) {
             } catch (ex) {
             }
             return {
-                version: version || NA_VERSION
+                version : version || NA_VERSION
             };
         }],
         ["tao", /\btaobrowser\/([0-9.]+)/],
@@ -507,7 +507,7 @@ define(function (require, module, exports) {
         ["ie", re_msie],
         ["mi", /\bmiuibrowser\/([0-9.]+)/],
         // Opera 15 之后开始使用 Chromniun 内核，需要放在 Chrome 的规则之前。
-        ["opera", function (ua) {
+        ["opera", function(ua) {
             var re_opera_old = /\bopera.+version\/([0-9.ab]+)/;
             var re_opera_new = /\bopr\/([0-9.]+)/;
             return re_opera_old.test(ua) ? re_opera_old : re_opera_new;
@@ -515,7 +515,7 @@ define(function (require, module, exports) {
         ["oupeng", /\boupeng\/([0-9.]+)/],
         ["yandex", /yabrowser\/([0-9.]+)/],
         // 支付宝手机客户端
-        ["ali-ap", function (ua) {
+        ["ali-ap", function(ua) {
             if (ua.indexOf("aliapp") > 0) {
                 return /\baliapp\(ap\/([0-9.]+)\)/;
             } else {
@@ -536,7 +536,7 @@ define(function (require, module, exports) {
         ["ali-tm-pd", /\baliapp\(tm-pd\/([0-9.]+)\)/],
         // UC 浏览器，可能会被识别为 Android 浏览器，规则需要前置。
         // UC 桌面版浏览器携带 Chrome 信息，需要放在 Chrome 之前。
-        ["uc", function (ua) {
+        ["uc", function(ua) {
             if (ua.indexOf("ucbrowser/") >= 0) {
                 return /\bucbrowser\/([0-9.]+)/;
             } else if (ua.indexOf("ubrowser/") >= 0) {
@@ -553,16 +553,16 @@ define(function (require, module, exports) {
         }],
         ["chrome", / (?:chrome|crios|crmo)\/([0-9.]+)/],
         // Android 默认浏览器。该规则需要在 safari 之前。
-        ["android", function (ua) {
+        ["android", function(ua) {
             if (ua.indexOf("android") === -1) {
                 return;
             }
             return /\bversion\/([0-9.]+(?: beta)?)/;
         }],
-        ["blackberry", function (ua) {
+        ["blackberry", function(ua) {
             var m = ua.match(re_blackberry_10) || ua.match(re_blackberry_6_7) || ua.match(re_blackberry_4_5);
             return m ? {
-                version: m[1]
+                version : m[1]
             } : "blackberry";
         }],
         ["safari", /\bversion\/([0-9.]+(?: beta)?)(?: mobile(?:\/[a-z0-9]+)?)? safari\//],
@@ -571,7 +571,7 @@ define(function (require, module, exports) {
         ["firefox", /\bfirefox\/([0-9.ab]+)/],
         ["nokia", /\bnokiabrowser\/([0-9.]+)/],
         ['micromessenger', /\bmicromessenger\/([\d.]+)/],
-        ['baiduboxapp', function (ua) {
+        ['baiduboxapp', function(ua) {
             var back = 0;
             var a;
             if (/ baiduboxapp\//i.test(ua)) {
@@ -583,7 +583,7 @@ define(function (require, module, exports) {
                 }
 
                 return {
-                    version: back
+                    version : back
                 };
             }
             return false;
@@ -615,11 +615,11 @@ define(function (require, module, exports) {
         ["curl", /\bcurl\/([0-9.]+)/]
     ];
 
-// UserAgent Detector.
-// @param {String} ua, userAgent.
-// @param {Object} expression
-// @return {Object}
-//    返回 null 表示当前表达式未匹配成功。
+    // UserAgent Detector.
+    // @param {String} ua, userAgent.
+    // @param {Object} expression
+    // @return {Object}
+    //    返回 null 表示当前表达式未匹配成功。
 
 
     function detect (name, expression, ua) {
@@ -630,7 +630,7 @@ define(function (require, module, exports) {
         var info = {
             name    : name,
             version : NA_VERSION,
-            codename: ""
+            codename : ""
         };
         var t = toString(expr);
         if (expr === true) {
@@ -659,14 +659,14 @@ define(function (require, module, exports) {
 
     var na = {
         name   : "na",
-        version: NA_VERSION
+        version : NA_VERSION
     };
-// 初始化识别。
+    // 初始化识别。
 
 
     function init (ua, patterns, factory, detector) {
         var detected = na;
-        each(patterns, function (pattern) {
+        each(patterns, function(pattern) {
             var d = detect(pattern[0], pattern[1], ua);
             if (d) {
                 detected = d;
@@ -676,36 +676,36 @@ define(function (require, module, exports) {
         factory.call(detector, detected.name, detected.version);
     }
 
-// 解析 UserAgent 字符串
-// @param {String} ua, userAgent string.
-// @return {Object}
-    var parse = function (ua) {
+    // 解析 UserAgent 字符串
+    // @param {String} ua, userAgent string.
+    // @return {Object}
+    var parse = function(ua) {
         ua = (ua || "").toLowerCase();
         var d = {};
 
-        init(ua, DEVICES, function (name, version) {
+        init(ua, DEVICES, function(name, version) {
             var v = parseFloat(version);
             d.device = {
                 name       : name,
                 version    : v,
-                fullVersion: version
+                fullVersion : version
             };
             d.device[name] = v;
         }, d);
 
-        init(ua, OS, function (name, version) {
+        init(ua, OS, function(name, version) {
             var v = parseFloat(version);
             d.os = {
                 name       : name,
                 version    : v,
-                fullVersion: version
+                fullVersion : version
             };
             d.os[name] = v;
         }, d);
 
         var ieCore = IEMode(ua);
 
-        init(ua, ENGINE, function (name, version) {
+        init(ua, ENGINE, function(name, version) {
             var mode = version;
             // IE 内核的浏览器，修复版本号及兼容模式。
             if (ieCore) {
@@ -716,7 +716,7 @@ define(function (require, module, exports) {
             d.engine = {
                 name       : name,
                 version    : v,
-                fullVersion: version,
+                fullVersion : version,
                 mode       : parseFloat(mode),
                 fullMode   : mode,
                 compatible : ieCore ? ieCore.compatible : false
@@ -724,7 +724,7 @@ define(function (require, module, exports) {
             d.engine[name] = v;
         }, d);
 
-        init(ua, BROWSER, function (name, version) {
+        init(ua, BROWSER, function(name, version) {
             var mode = version;
             // IE 内核的浏览器，修复浏览器版本及兼容模式。
             if (ieCore) {
@@ -738,7 +738,7 @@ define(function (require, module, exports) {
             d.browser = {
                 name       : name,
                 version    : v,
-                fullVersion: version,
+                fullVersion : version,
                 mode       : parseFloat(mode),
                 fullMode   : mode,
                 compatible : ieCore ? ieCore.compatible : false
@@ -758,7 +758,7 @@ define(function (require, module, exports) {
     detector = parse(userAgent + " " + appVersion + " " + vendor);
 
 
-// exports `parse()` API anyway.
+    // exports `parse()` API anyway.
     detector.parse = parse;
 
     return detector;

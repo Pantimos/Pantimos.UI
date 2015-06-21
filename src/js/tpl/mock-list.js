@@ -1,7 +1,7 @@
 /**
 * mock-list
 *
-* @date 2015-06-13
+* @date 2015-06-21
 */
 /* global define */
 define(function () {
