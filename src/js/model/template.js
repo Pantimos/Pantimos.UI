@@ -4,11 +4,13 @@ define(function(require) {
 
     var tplPackage = {
         'project-list' : require('../tpl/project-list'),
-        'mock-list' :require('../tpl/mock-list')
+        'mock-list'    : require('../tpl/mock-list'),
+        'header-nav'   : require('../tpl/header-nav')
     };
     var container = {
         'project-list' : '.js-table-project-list',
-        'mock-list' :'.js-table-mock-list'
+        'mock-list'    : '.js-table-mock-list',
+        'header-nav'   : '#navbar .navbar-nav'
     };
 
     function Template(page) {

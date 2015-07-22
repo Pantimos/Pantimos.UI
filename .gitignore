@@ -1,5 +1,6 @@
 dist/
 demo/
+src/js/tpl/*.js
 
 .idea/
 *.iml

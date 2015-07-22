@@ -10,6 +10,8 @@ define(function(require) {
 
     var $ = require('./model/core');
     var debug = require('./model/debug');
+    var headerNav = require('./model/header-nav');
+
     debug('info');
 
     var page = {};
@@ -17,6 +19,7 @@ define(function(require) {
     function init() {
         $(function() {
             debug.log('Pantimos Start!');
+            headerNav.init();
             page.home = require('./page/home').init('.js-page-home');
             page.project = require('./page/project').init('.js-page-project');
             page.mock = require('./page/mock').init('.js-page-mock');
