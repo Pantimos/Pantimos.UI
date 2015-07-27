@@ -7,7 +7,7 @@
             {{~item.children:children:idx}}
                 {{?!children.divider}}
                     {{?!children.header}}
-            <li><a href="{{=children.link|'#'}}" {{?children.blank}}target="_blank"{{?}}><i class="{{=children.icon}}"></i>{{=children.name}}</a></li>
+            <li><a href="{{=children.link}}" {{?children.blank}}target="_blank"{{?}}><i class="{{=children.icon}}"></i>{{=children.name}}</a></li>
                     {{??}}
             <li class="dropdown-header">{{=children.header}}</li>
                     {{?}}
@@ -18,7 +18,7 @@
         </ul>
     </li>
         {{??}}
-    <li><a href="{{=item.link||'#'}}"{{?item.class}} class="{{=item.class}}"{{?}}><i{{?item.icon}} class="{{=item.icon}}"{{?}}></i>{{=item.name}}</a></li>
+    <li><a href="{{=item.link}}"{{?item.class}} class="{{=item.class}}"{{?}}><i{{?item.icon}} class="{{=item.icon}}"{{?}}></i>{{=item.name}}</a></li>
         {{?}}
     {{~}}
 </ul>
