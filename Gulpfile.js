@@ -10,7 +10,7 @@ var minifyCSS = require('gulp-minify-css');
 var uglify = require('gulp-uglify');
 var template = require('gulp-lazy-tpl');
 var rm = require('gulp-rm');
-
+var connect = require('gulp-connect');
 
 gulp.task('default', ['demo:sync']);
 gulp.task('build', ['style:build', 'script:build'], function() {});
@@ -18,7 +18,7 @@ gulp.task('style:build', ['style:less', 'style:copy-lib', 'style:copy-img', 'sty
 gulp.task('script:build', ['script:copy-lib', 'scripts:minify'], function() {});
 
 // 编译脚本
-gulp.task('scripts:compile',['scripts:template'], function() {
+gulp.task('scripts:compile', ['scripts:template'], function() {
     return gulp.src('src/js/**/*.js')
         .pipe(amdOptimize('moe', {wrapShim : true}))
         .pipe(concat('moe.js'))
@@ -85,3 +85,8 @@ gulp.task('demo:sync', ['build'], function() {
             console.log(e);
         });
 });
+
+gulp.task('connect', function() {
+    connect.server();
+});
+
