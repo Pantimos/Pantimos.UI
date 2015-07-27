@@ -35,7 +35,6 @@ define(function(require) {
                 }
             }
         }
-        console.log(Data.data.nav)
     }
 
     return Data;

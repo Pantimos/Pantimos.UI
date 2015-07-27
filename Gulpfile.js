@@ -82,12 +82,16 @@ gulp.task('demo:sync', ['build'], function() {
     gulp.src('')
         .pipe(dirSync('src/html', 'demo', {printSummary : true}))
         .pipe(dirSync('dist', 'demo/assets', {printSummary : true}))
+        .pipe(connect.reload())
         .on('error', function(e) {
             console.log(e);
         });
 });
 
 gulp.task('connect', function() {
-    connect.server();
+    connect.server({
+        root: './',
+        livereload: true
+    });
 });
 
